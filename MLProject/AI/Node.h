@@ -10,7 +10,6 @@ public:
     __declspec(dllexport) void setValue(int value);
     __declspec(dllexport) std::vector<Node*>* getParents();
     __declspec(dllexport) void setParents(std::vector<Node*>* parents);
-    Matrix<int> *deleteMe = new Matrix<int>(5, 5);
 private:
 	int _value = 1;
     int _bias = 10;
