@@ -4,8 +4,8 @@
 class Node
 {
 public:
-    Node(int value, std::vector<Node*>* parents = nullptr);
-    ~Node();
+    __declspec(dllexport) Node(int value, std::vector<Node*>* parents = nullptr);
+    __declspec(dllexport) ~Node();
     __declspec(dllexport) int getValue();
     __declspec(dllexport) void setValue(int value);
     __declspec(dllexport) std::vector<Node*>* getParents();

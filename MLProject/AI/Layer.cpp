@@ -11,12 +11,9 @@ Layer::Layer(int nbNodes, LayerType type, Layer* precedentLayer)
 		if ((_type == LayerType::Hidden || _type==LayerType::Output) && precedentLayer != nullptr) [[likely]]
 		{
 			_precedent = precedentLayer;
-			auto* vectTemp = new std::vector<std::pair<Node*, int >*>();
-			for (unsigned int j = 0; j < _precedent->_nodes.size(); j++)
-			{
-				vectTemp->push_back(new std::pair<Node*, int>(_precedent->_nodes.at(j), 1));
-			}
-			_linkWithPrecedentLayer.insert(std::pair<Node* , std::vector<std::pair<Node*, int>*>*>(node, vectTemp));
+			auto* matrix = new Matrix<float>(1, _precedent->_nodes.size());
+			++*matrix;
+			_linkWithPrecedentLayer.insert(std::pair<Node* , Matrix<float>*>(node, matrix));
 		}		
 	}
 }
@@ -24,6 +21,16 @@ Layer::Layer(int nbNodes, LayerType type, Layer* precedentLayer)
 Layer::~Layer()
 {
 	
+}
+
+std::vector<Node*>& Layer::getNodes()
+{
+	return _nodes;
+}
+
+void Layer::setNodesOfNextLayer(Layer* layer)
+{
+	_nodesOfNextLayer = &layer->_nodes;
 }
 
 LayerType Layer::getType()
